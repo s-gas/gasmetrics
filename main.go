@@ -27,7 +27,7 @@ func main() {
 		if update.Message != nil {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, update.Message.Text)
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Received")
 			msg.ReplyToMessageID = update.Message.MessageID
 
 			bot.Send(msg)
