@@ -28,7 +28,7 @@ func main() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
 			var msg tgbotapi.MessageConfig
-			if isInvalid(update.Message.Text) {
+			if isValid(update.Message.Text) == false {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid message")
 			} else {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Received")
