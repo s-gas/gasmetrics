@@ -1,5 +1,11 @@
 package main
 
+import "strconv"
+
 func isValid(message string) bool {
-	return true
+	if _, err := strconv.Atoi(message); err == nil {
+		return true
+	} else {
+		return false
+	}
 }
