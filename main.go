@@ -29,7 +29,7 @@ func main() {
 
 			var msg tgbotapi.MessageConfig
 			if isValid(update.Message.Text) == false {
-				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid message")
+				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid input: enter a positive integer")
 			} else {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Received")
 			}
