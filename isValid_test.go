@@ -12,6 +12,7 @@ func TestIsValid(t *testing.T) {
 		{"float", "1234.56", false},
 		{"negative", "-12", false},
 		{"zero", "0", false},
+		{"positive integer", "1", true},
 	}
 
 	for _, tt := range tests {
