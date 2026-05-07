@@ -28,7 +28,7 @@ func main() {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
 
 			var msg tgbotapi.MessageConfig
-			if isValid(update.Message.Text) == false {
+			if !isValid(update.Message.Text) {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Invalid input: enter a positive integer")
 			} else {
 				msg = tgbotapi.NewMessage(update.Message.Chat.ID, "Received")
