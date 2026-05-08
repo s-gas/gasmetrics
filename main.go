@@ -1,22 +1,24 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	"os"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
-	token, err := os.ReadFile("/run/secrets/telegram_token")
+	bot, err := createBot()
 	if err != nil {
 		log.Fatal(err)
 	}
-	bot, err := tgbotapi.NewBotAPI(string(token))
+	log.Println("Authorized on account", bot.Self.UserName)
+
+	url, err := generateUrl()
 	if err != nil {
 		log.Fatal(err)
 	}
-	log.Printf("Authorized on account %s", bot.Self.UserName)
+	fmt.Println("Url correctly generated", url)
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60

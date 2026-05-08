@@ -4,6 +4,8 @@ services:
     container_name: gasmetrics
     environment:
       - TZ=Europe/Berlin
+      - POSTGRES_USER=s-gas
+      - POSTGRES_DB=gasmetrics
     secrets:
       - telegram_token
       - postgres_password
