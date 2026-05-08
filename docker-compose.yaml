@@ -1,6 +1,7 @@
 services:
-  gasbot:
+  gasmetrics:
     build: .
+    container_name: gasmetrics
     environment:
       - TZ=Europe/Berlin
     secrets:
