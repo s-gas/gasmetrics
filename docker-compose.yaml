@@ -6,6 +6,7 @@ services:
       - TZ=Europe/Berlin
     secrets:
       - telegram_token
+      - postgres_password
     restart: unless-stopped
     networks:
       - hauslab
@@ -13,6 +14,8 @@ services:
 secrets:
   telegram_token:
     file: secrets/telegram_token.txt
+  postgres_password:
+    file: secrets/postgres_password.txt
 
 networks:
   hauslab:

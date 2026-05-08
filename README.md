@@ -7,6 +7,22 @@ WIP
 
 Telegram bot for tracking home gas readings.
 
+## How to run
+
+Create the files to store the Telegram token and the PostgreSQL password:
+
+```bash
+mkdir secrets
+printf '<token>' > secrets/telegram_token.txt
+printf '<password>' > secrets/postgres_password.txt
+```
+
+Run the containers:
+
+```bash
+docker compose up
+```
+
 ## Troubleshooting
 
 ### PostgresSQL password
