@@ -7,7 +7,13 @@ services:
     secrets:
       - telegram_token
     restart: unless-stopped
+    networks:
+      - hauslab
 
 secrets:
   telegram_token:
     file: secrets/telegram_token.txt
+
+networks:
+  hauslab:
+    external: true
