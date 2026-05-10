@@ -1,6 +1,6 @@
 services:
   gasmetrics:
-    build: .
+    image: sgasparini/gasmetrics:latest
     container_name: gasmetrics
     environment:
       - TZ=Europe/Berlin
