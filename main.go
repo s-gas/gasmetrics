@@ -1,10 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"context"
 	"log"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
+	"github.com/jackc/pgx/v5"
 )
 
 func main() {
@@ -18,7 +19,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println("Url correctly generated", url)
+
+	conn, err := pgx.Connect(context.Background(), url)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer conn.Close(context.Background())
 
 	u := tgbotapi.NewUpdate(0)
 	u.Timeout = 60

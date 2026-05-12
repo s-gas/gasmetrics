@@ -11,8 +11,8 @@ func TestGenerateResponse(t *testing.T) {
 		{"empty", "", "Invalid input: enter a positive integer"},
 		{"negative", "-1", "Invalid input: enter a positive integer"},
 		{"positive", "1", "Input received"},
+		{"not a number", "hello", "Invalid input: enter a positive integer"},
 	}
-
 	for _, tt := range tests {
 		if got := generateResponse(tt.input); got != tt.want {
 			t.Errorf("generateResponse(%q) = %v; want %v", tt.input, got, tt.want)
