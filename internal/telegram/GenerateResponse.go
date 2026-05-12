@@ -1,6 +1,6 @@
-package main
+package telegram
 
-func generateResponse(message string) string {
+func GenerateResponse(message string) string {
 	if !isValid(message) {
 		return "Invalid input: enter a positive integer"
 	} else {

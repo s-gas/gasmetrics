@@ -1,4 +1,4 @@
-package main
+package telegram
 
 import "testing"
 
@@ -14,7 +14,7 @@ func TestGenerateResponse(t *testing.T) {
 		{"not a number", "hello", "Invalid input: enter a positive integer"},
 	}
 	for _, tt := range tests {
-		if got := generateResponse(tt.input); got != tt.want {
+		if got := GenerateResponse(tt.input); got != tt.want {
 			t.Errorf("generateResponse(%q) = %v; want %v", tt.input, got, tt.want)
 		}
 	}
