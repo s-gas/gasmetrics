@@ -13,20 +13,24 @@ import (
 
 func Update(ctx context.Context, conn *pgx.Conn, bot *tgbotapi.BotAPI, update tgbotapi.Update) error {
 	if update.Message == nil {
-		telegram.Reply("Failure", bot, update)
+		telegram.Reply("Failed to add entry", bot, update)
 		return errors.New("Update: message is empty")
 	}
 	lastEntry, err := postgres.GetLastEntry(ctx, conn)
 	if err != nil {
-		telegram.Reply("Failure", bot, update)
+		telegram.Reply("Failed to add entry", bot, update)
 		return fmt.Errorf("Update: %w", err)
 	}
 	value, err := validate(update.Message.Text, lastEntry)
 	if err != nil {
-		telegram.Reply("Failure", bot, update)
+		telegram.Reply("Failed to add entry", bot, update)
 		return fmt.Errorf("Update: %w", err)
 	}
-	_ = value
-	telegram.Reply("Success", bot, update)
+	err = postgres.AddEntry(ctx, conn, value)
+	if err != nil {
+		telegram.Reply("Failed to add entry", bot, update)
+		return fmt.Errorf("Update: %w", err)
+	}
+	telegram.Reply("Entry added successfully", bot, update)
 	return nil
 }

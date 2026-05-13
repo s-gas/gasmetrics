@@ -14,7 +14,7 @@ func TestValidate(t *testing.T) {
 		{"float", "1234.56", 100, 0, true},
 		{"negative", "-12", 100, 0, true},
 		{"zero", "0", 100, 0, true},
-		{"positive integer", "1", 100, 1, false},
+		{"positive integer", "1", 0, 1, false},
 		{"smaller than last entry", "1", 3, 0, true},
 	}
 
