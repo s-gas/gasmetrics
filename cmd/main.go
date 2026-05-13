@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/s-gas/hauslab/services/gasmetrics/internal/handler"
@@ -26,7 +27,7 @@ func main() {
 	for update := range updates {
 		err = handler.Update(ctx, conn, bot, update)
 		if err != nil {
-			log.Println(err)
+			fmt.Println(err)
 		}
 	}
 }
