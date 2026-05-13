@@ -13,11 +13,15 @@ func Connect() (*pgx.Conn, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Connect: generateUrl: %w", err)
 	}
-	conn, err := pgx.Connect(context.Background(), url)
+	ctx := context.Background()
+	conn, err := pgx.Connect(ctx, url)
 	if err != nil {
 		return nil, fmt.Errorf("Connect: pgx.Connect: %w", err)
 	}
-	defer conn.Close(context.Background())
+	err = createTable(conn, ctx)
+	if err != nil {
+		return nil, fmt.Errorf("Connect: createTable: %w", err)
+	}
 	return conn, nil
 }
 

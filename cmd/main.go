@@ -11,24 +11,22 @@ import (
 )
 
 func main() {
-	bot, err := telegram.CreateBot()
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("Authorized on account", bot.Self.UserName)
-
 	conn, err := postgres.Connect()
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer conn.Close(context.Background())
 
+	bot, err := telegram.CreateBot()
+	if err != nil {
+		log.Fatal(err)
+	}
 	updates := telegram.GetUpdates(bot)
 
 	for update := range updates {
 		if update.Message != nil {
 			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, telegram.GenerateResponse(update.Message.Text))
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, telegram.GetResponse(update.Message.Text))
 			msg.ReplyToMessageID = update.Message.MessageID
 			bot.Send(msg)
 		}

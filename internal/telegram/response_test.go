@@ -2,7 +2,7 @@ package telegram
 
 import "testing"
 
-func TestGenerateResponse(t *testing.T) {
+func TestGetResponse(t *testing.T) {
 	tests := []struct {
 		name  string
 		input string
@@ -14,8 +14,8 @@ func TestGenerateResponse(t *testing.T) {
 		{"not a number", "hello", "Invalid input: enter a positive integer"},
 	}
 	for _, tt := range tests {
-		if got := GenerateResponse(tt.input); got != tt.want {
-			t.Errorf("generateResponse(%q) = %v; want %v", tt.input, got, tt.want)
+		if got := GetResponse(tt.input); got != tt.want {
+			t.Errorf("GetResponse(%q) = %v; want %v", tt.input, got, tt.want)
 		}
 	}
 }
