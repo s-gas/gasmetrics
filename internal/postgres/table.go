@@ -7,7 +7,7 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func createTable(conn *pgx.Conn, ctx context.Context) error {
+func createTable(ctx context.Context, conn *pgx.Conn) error {
 	_, err := conn.Exec(ctx, `
 		CREATE TABLE IF NOT EXISTS gasmetrics (
 			id 				SERIAL PRIMARY KEY,

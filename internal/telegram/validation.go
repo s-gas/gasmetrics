@@ -2,7 +2,7 @@ package telegram
 
 import "strconv"
 
-func isValid(message string) bool {
+func isPositiveInteger(message string) bool {
 	if v, err := strconv.Atoi(message); err == nil {
 		return v > 0
 	} else {

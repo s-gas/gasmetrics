@@ -4,14 +4,14 @@ import (
 	"context"
 	"log"
 
+	"github.com/s-gas/hauslab/services/gasmetrics/internal/handler"
 	"github.com/s-gas/hauslab/services/gasmetrics/internal/postgres"
 	"github.com/s-gas/hauslab/services/gasmetrics/internal/telegram"
-
-	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
-	conn, err := postgres.Connect()
+	ctx := context.Background()
+	conn, err := postgres.Connect(ctx)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -24,11 +24,9 @@ func main() {
 	updates := telegram.GetUpdates(bot)
 
 	for update := range updates {
-		if update.Message != nil {
-			log.Printf("[%s] %s", update.Message.From.UserName, update.Message.Text)
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, telegram.GetResponse(update.Message.Text))
-			msg.ReplyToMessageID = update.Message.MessageID
-			bot.Send(msg)
+		err = handler.Update(ctx, conn, bot, update)
+		if err != nil {
+			log.Println(err)
 		}
 	}
 }

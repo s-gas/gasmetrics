@@ -2,7 +2,7 @@ package telegram
 
 import "testing"
 
-func TestIsValid(t *testing.T) {
+func TestIsPositiveInteger(t *testing.T) {
 	tests := []struct {
 		name  string
 		input string
@@ -16,8 +16,8 @@ func TestIsValid(t *testing.T) {
 	}
 
 	for _, tt := range tests {
-		if got := isValid(tt.input); got != tt.want {
-			t.Errorf("isValid(%q) = %v; want: %v", tt.input, got, tt.want)
+		if got := isPositiveInteger(tt.input); got != tt.want {
+			t.Errorf("isPositiveInteger(%q) = %v; want: %v", tt.input, got, tt.want)
 		}
 	}
 }
