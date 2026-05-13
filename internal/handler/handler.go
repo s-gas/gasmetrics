@@ -13,16 +13,20 @@ import (
 
 func Update(ctx context.Context, conn *pgx.Conn, bot *tgbotapi.BotAPI, update tgbotapi.Update) error {
 	if update.Message == nil {
+		telegram.Reply("Failure", bot, update)
 		return errors.New("Update: message is empty")
 	}
-	lastQuery, err := postgres.GetLastQuery(ctx, conn)
+	lastEntry, err := postgres.GetLastEntry(ctx, conn)
 	if err != nil {
-		return fmt.Errorf("Update: GetLastQuery: %w", err)
+		telegram.Reply("Failure", bot, update)
+		return fmt.Errorf("Update: %w", err)
 	}
-	fmt.Println(lastQuery)
-	response := telegram.GetResponse(update.Message.Text)
-	msg := tgbotapi.NewMessage(update.Message.Chat.ID, response)
-	msg.ReplyToMessageID = update.Message.MessageID
-	bot.Send(msg)
+	value, err := validate(update.Message.Text, lastEntry)
+	if err != nil {
+		telegram.Reply("Failure", bot, update)
+		return fmt.Errorf("Update: %w", err)
+	}
+	_ = value
+	telegram.Reply("Success", bot, update)
 	return nil
 }

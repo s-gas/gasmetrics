@@ -10,11 +10,11 @@ import (
 func CreateBot() (*tgbotapi.BotAPI, error) {
 	token, err := os.ReadFile("/run/secrets/telegram_token")
 	if err != nil {
-		return nil, fmt.Errorf("CreateBot: ReadFile: %w", err)
+		return nil, fmt.Errorf("CreateBot: %w", err)
 	}
 	bot, err := tgbotapi.NewBotAPI(string(token))
 	if err != nil {
-		return nil, fmt.Errorf("CreateBot: NewBotAPI: %w", err)
+		return nil, fmt.Errorf("CreateBot: %w", err)
 	}
 	return bot, nil
 }

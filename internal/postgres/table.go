@@ -16,7 +16,7 @@ func createTable(ctx context.Context, conn *pgx.Conn) error {
 		)
 	`)
 	if err != nil {
-		return fmt.Errorf("createTable: Exec: %w", err)
+		return fmt.Errorf("createTable: %w", err)
 	}
 	return nil
 }
