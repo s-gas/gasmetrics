@@ -12,7 +12,7 @@ func CreateBot() (*tgbotapi.BotAPI, error) {
 	if err != nil {
 		return nil, fmt.Errorf("CreateBot: %w", err)
 	}
-	bot, err := tgbotapi.NewBotAPI(string(token))
+	bot, err := tgbotapi.NewBotAPI(strings.TrimSpace(string(token)))
 	if err != nil {
 		return nil, fmt.Errorf("CreateBot: %w", err)
 	}
