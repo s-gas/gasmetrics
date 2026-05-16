@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/s-gas/hauslab/services/gasmetrics/internal/handler"
-	"github.com/s-gas/hauslab/services/gasmetrics/internal/postgres"
-	"github.com/s-gas/hauslab/services/gasmetrics/internal/telegram"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics/internal/handler"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics/internal/postgres"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics/internal/telegram"
 )
 
 func main() {

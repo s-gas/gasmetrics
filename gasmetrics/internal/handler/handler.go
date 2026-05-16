@@ -7,8 +7,8 @@ import (
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/jackc/pgx/v5"
-	"github.com/s-gas/hauslab/services/gasmetrics/internal/postgres"
-	"github.com/s-gas/hauslab/services/gasmetrics/internal/telegram"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics/internal/postgres"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics/internal/telegram"
 )
 
 func Update(ctx context.Context, conn *pgx.Conn, bot *tgbotapi.BotAPI, update tgbotapi.Update) error {
