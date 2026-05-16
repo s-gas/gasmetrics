@@ -32,9 +32,6 @@ func main() {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
-		body, _ := io.ReadAll(r.Body)
-		log.Println("body:", string(body))
-		r.Body = io.NopCloser(strings.NewReader(string(body)))
 		if err := json.NewDecoder(r.Body).Decode(&reading); err != nil {
 			log.Println("error: invalid body")
 			http.Error(w, "invalid body", http.StatusBadRequest)

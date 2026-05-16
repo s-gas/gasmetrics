@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"strconv"
 )
 
 func validate(value int, lastEntry int) (int, error) {
