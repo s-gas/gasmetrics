@@ -5,7 +5,7 @@ import (
 )
 
 func validate(value int, lastEntry int) (int, error) {
-	if v <= lastEntry {
+	if value <= lastEntry {
 		return 0, fmt.Errorf("validate: value must be greater than last entry (%v)", lastEntry)
 	}
 	return v, nil
