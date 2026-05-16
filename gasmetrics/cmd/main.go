@@ -18,8 +18,6 @@ func main() {
 	}
 	defer conn.Close(context.Background())
 
-	// add goroutine for starting HTTP server
-
 	bot, err := telegram.CreateBot()
 	if err != nil {
 		log.Fatal(err)
