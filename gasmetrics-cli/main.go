@@ -13,7 +13,7 @@ func main() {
 		log.Fatal("usage: gasmetrics-cli <value>")
 	}
 	value := os.Args[1]
-	url := "http://gasmetrics:1024/readings"
+	url := "http://gasmetrics-server:1024/readings"
 	contentType := "application/json"
 	body := strings.NewReader(fmt.Sprintf(`{"value": %s}`, value))
 	resp, err := http.Post(url, contentType, body)
