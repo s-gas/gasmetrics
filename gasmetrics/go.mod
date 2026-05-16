@@ -1,4 +1,4 @@
-module github.com/s-gas/hauslab/services/gasmetrics
+module github.com/s-gas/hauslab/services/gasmetrics/gasmetrics
 
 go 1.26.1
 
