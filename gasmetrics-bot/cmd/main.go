@@ -15,7 +15,7 @@ func main() {
 		log.Fatal(err)
 	}
 	port := os.Getenv("PORT")
-	url := fmt.Sprintf("http://gasmetrics:%s/readings", port)
+	url := fmt.Sprintf("http://gasmetrics-server:%s/readings", port)
 	contentType := "application/json"
 
 	updates := telegram.GetUpdates(bot)
@@ -26,6 +26,7 @@ func main() {
 		resp, err := http.Post(url, contentType, body)
 		if err != nil {
 			log.Println(err)
+			continue
 		}
 		defer resp.Body.Close()
 	
