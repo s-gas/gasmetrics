@@ -11,6 +11,7 @@ RUN go build -v -o gasmetrics-bot ./cmd/
 
 # 2
 FROM debian:12.13
+RUN apt-get update && apt-get install -y ca-certificates
 
 WORKDIR /usr/src/app
 
