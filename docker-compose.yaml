@@ -1,23 +1,31 @@
 services:
-  gasmetrics:
-    image: sgasparini/gasmetrics:latest
-    container_name: gasmetrics
+  gasmetrics-server:
+    image: sgasparini/gasmetrics-server:latest
+    container_name: gasmetrics-server
     environment:
+      - PORT=1024
       - TZ=Europe/Berlin
       - POSTGRES_USER=s-gas
       - POSTGRES_DB=gasmetrics
     secrets:
-      - telegram_token
       - postgres_password
     restart: unless-stopped
     networks:
       - hauslab
+  gasmetrics-bot:
+    image: sgasparini/gasmetrics-bot:latest
+    container_name: gasmetrics-bot
+    environment:
+      - PORT=1024
+      - TZ=Europe/Berlin
+    secrets:
+      - telegram_token 
 
 secrets:
   telegram_token:
-    file: gasmetrics/secrets/telegram_token.txt
+    file: gasmetrics-bot/secrets/telegram_token.txt
   postgres_password:
-    file: gasmetrics/secrets/postgres_password.txt
+    file: gasmetrics-server/secrets/postgres_password.txt
 
 networks:
   hauslab:

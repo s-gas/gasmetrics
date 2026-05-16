@@ -1,2 +1,3 @@
-gasmetrics/secrets/
+gasmetrics-bot/secrets/
+gasmetrics-server/secrets/
 gasmetrics-cli/gasmetrics-cli

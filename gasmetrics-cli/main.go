@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"log"
 	"strings"
@@ -23,8 +22,8 @@ func main() {
 	defer resp.Body.Close()
 	
 	if resp.StatusCode == http.StatusOK {
-		fmt.Println("Entry added successfully")
+		log.Println("Entry added successfully")
 	} else {
-		fmt.Println("Failed to add entry")
+		log.Println("Failed to add entry")
 	}
 }

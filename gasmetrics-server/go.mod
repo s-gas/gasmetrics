@@ -1,8 +1,6 @@
-module github.com/s-gas/hauslab/services/gasmetrics/gasmetrics
+module github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server
 
-go 1.26.1
-
-require github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
+go 1.26.3
 
 require (
 	github.com/jackc/pgpassfile v1.0.0 // indirect
