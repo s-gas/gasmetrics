@@ -26,7 +26,6 @@ func main() {
 	var reading Reading
 	endpoint := "/readings"
 	http.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
-		log.Println("request received")
 		if r.Method != http.MethodPost {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 			return
@@ -35,6 +34,7 @@ func main() {
 			http.Error(w, "invalid body", http.StatusBadRequest)
 			return
 		}
+		log.Println("request received with value", reading.value)
 		if err := handler.StoreValue(ctx, conn, reading.value); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
