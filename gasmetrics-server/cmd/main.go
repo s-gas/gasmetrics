@@ -12,7 +12,7 @@ import (
 )
 
 type Reading struct {
-	Value string `json:"value"`
+	Value int `json:"value"`
 }
 
 func main() {
