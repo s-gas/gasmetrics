@@ -2,17 +2,12 @@ package handler
 
 import (
 	"context"
-	"errors"
-	"fmt"
 
 	"github.com/jackc/pgx/v5"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
 )
 
 func StoreValue(ctx context.Context, conn *pgx.Conn, value string) error {
-	if value.Message == nil {
-		return errors.New("Message is empty")
-	}
 	lastEntry, err := postgres.GetLastEntry(ctx, conn)
 	if err != nil {
 		return err

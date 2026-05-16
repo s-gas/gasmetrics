@@ -21,6 +21,7 @@ func main() {
 	updates := telegram.GetUpdates(bot)
 
 	for update := range updates {
+		value := update.Message.Text
 		body := strings.NewReader(fmt.Sprintf(`{"value": %s}`, value))
 		resp, err := http.Post(url, contentType, body)
 		if err != nil {
@@ -35,6 +36,6 @@ func main() {
 			msg = "Failed to add entry"
 		}
 		log.Println(msg)
-		telegram.Reply(, bot, update)
+		telegram.Reply(bot, update)
 	}
 }
