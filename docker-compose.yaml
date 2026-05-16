@@ -15,9 +15,9 @@ services:
 
 secrets:
   telegram_token:
-    file: secrets/telegram_token.txt
+    file: gasmetrics/secrets/telegram_token.txt
   postgres_password:
-    file: secrets/postgres_password.txt
+    file: gasmetrics/secrets/postgres_password.txt
 
 networks:
   hauslab:
