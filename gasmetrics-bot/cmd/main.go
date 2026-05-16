@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
-
+	"strings"
+	"net/http"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-bot/internal/telegram"
-	"github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
 func main() {
@@ -25,7 +25,7 @@ func main() {
 		body := strings.NewReader(fmt.Sprintf(`{"value": %s}`, value))
 		resp, err := http.Post(url, contentType, body)
 		if err != nil {
-			log.Errorf(err)
+			log.Println(err)
 		}
 		defer resp.Body.Close()
 	
@@ -36,6 +36,6 @@ func main() {
 			msg = "Failed to add entry"
 		}
 		log.Println(msg)
-		telegram.Reply(bot, update)
+		telegram.Reply(msg, bot, update)
 	}
 }
