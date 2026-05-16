@@ -20,6 +20,8 @@ services:
       - TZ=Europe/Berlin
     secrets:
       - telegram_token 
+    networks:
+      - hauslab
 
 secrets:
   telegram_token:
