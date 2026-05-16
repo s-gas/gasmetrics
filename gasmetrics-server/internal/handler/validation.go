@@ -5,11 +5,7 @@ import (
 	"strconv"
 )
 
-func validate(message string, lastEntry int) (int, error) {
-	v, err := strconv.Atoi(message)
-	if err != nil {
-		return 0, fmt.Errorf("validate: %w", err)
-	}
+func validate(value int, lastEntry int) (int, error) {
 	if v <= lastEntry {
 		return 0, fmt.Errorf("validate: value must be greater than last entry (%v)", lastEntry)
 	}
