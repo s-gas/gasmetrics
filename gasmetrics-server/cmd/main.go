@@ -27,15 +27,17 @@ func main() {
 	endpoint := "/readings"
 	http.HandleFunc(endpoint, func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
+			log.Println("method not allowed")
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 			return
 		}
 		if err := json.NewDecoder(r.Body).Decode(&reading); err != nil {
+			log.Println("invalid body")
 			http.Error(w, "invalid body", http.StatusBadRequest)
 			return
 		}
-		log.Println("request received with value", reading.value)
 		if err := handler.StoreValue(ctx, conn, reading.value); err != nil {
+			log.Println(err.Error())
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
