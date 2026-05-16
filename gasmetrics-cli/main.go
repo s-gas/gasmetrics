@@ -1,0 +1,30 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"log"
+	"strings"
+	"net/http"
+)
+
+func main() {
+	if len(os.Args) != 2 {
+		log.Fatal("usage: gasmetrics-cli <value>")
+	}
+	value := os.Args[1]
+	url := "http://gasmetrics:1024/readings"
+	contentType := "application/json"
+	body := strings.NewReader(fmt.Sprintf(`{"value": %s}`, value))
+	resp, err := http.Post(url, contentType, body)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer resp.Body.Close()
+	
+	if resp.StatusCode == http.StatusOK {
+		fmt.Println("Entry added successfully")
+	} else {
+		fmt.Println("Failed to add entry")
+	}
+}
