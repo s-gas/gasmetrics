@@ -7,13 +7,13 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
-RUN go build -v -o gasmetrics-server ./cmd/
+RUN go build -v -o gasmetrics-bot ./cmd/
 
 # 2
 FROM debian:12.13
 
 WORKDIR /usr/src/app
 
-COPY --from=builder /usr/src/app/gasmetrics-server .
+COPY --from=builder /usr/src/app/gasmetrics-bot .
 
-CMD ["./gasmetrics-server"]
+CMD ["./gasmetrics-bot"]
