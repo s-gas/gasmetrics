@@ -1,15 +1,7 @@
 package main
 
-import (
-	"os"
-	"github.com/spf13/cobra"
-)
-
-var rootCmd = &cobra.Command{Use: "gasmetrics-cli"}
+import "github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-cli/cmd"
 
 func main() {
-	if err := rootCmd.Execute(); err != nil {
-		os.Exit(1)
-	}
+	cmd.Execute()
 }
-
