@@ -2,12 +2,12 @@
 
 ![Go](https://img.shields.io/badge/Go-00ADD8?style=flat&logo=go&logoColor=white)
 
-CLI tool to manage gas meter readings.
+CLI tool to manage gas meter readings. It communicates with [gasmetrics-server](../gasmetrics-server).
 
 ## How to install
 
 ```bash
-go install "github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-cli@latest"
+go install 
 ```
 
 This command will install the binary in `~/go/bin`.
