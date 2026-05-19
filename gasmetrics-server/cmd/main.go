@@ -11,10 +11,6 @@ import (
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
 )
 
-type Reading struct {
-	Value int `json:"value"`
-}
-
 func main() {
 	ctx := context.Background()
 	conn, err := postgres.Connect(ctx)
@@ -26,18 +22,18 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /readings", func(w http.ResponseWriter, r *http.Request) {
-		last, err := handler.Get(ctx, conn)
+		readings, err := handler.Get(ctx, conn)
 		if err != nil {
 			log.Println("error:", err.Error())
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(map[string]int{"value": last})
+		json.NewEncoder(w).Encode(readings)
 	})
 
 	mux.HandleFunc("POST /readings", func(w http.ResponseWriter, r *http.Request) {
-		var reading Reading
+		var reading postgres.Reading
 		if err := json.NewDecoder(r.Body).Decode(&reading); err != nil {
 			http.Error(w, "invalid body", http.StatusBadRequest)
 			return

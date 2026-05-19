@@ -1,10 +1,11 @@
 package cmd
 
 import (
-    "fmt"
     "log"
+		"bytes"
+		"encoding/json"
+		"strconv"
     "net/http"
-    "strings"
     "github.com/spf13/cobra"
 )
 
@@ -13,14 +14,22 @@ var addCmd = &cobra.Command{
 	Short: 	"Add a gas reading (int)",
 	Args:		cobra.ExactArgs(1),
 	Run:		func(cmd *cobra.Command, args []string) {
-		body := strings.NewReader(fmt.Sprintf(`{"value": %s}`, args[0]))
-		resp, err := http.Post(url, contentType, body)
+		value, err := strconv.Atoi(args[0])
+		if err != nil || value <= 0 {
+			log.Fatal("value must be a positive integer")
+		}
+		mapValue := map[string]int{"value": value}
+		body, err := json.Marshal(mapValue)
+		if err != nil {
+			log.Fatal(err)
+		}
+		resp, err := http.Post(url, contentType, bytes.NewReader(body))
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer resp.Body.Close()
 		
-		if resp.StatusCode == http.StatusOK {
+		if resp.StatusCode == http.StatusCreated {
 			log.Println("Entry added successfully")
 		} else {
 			log.Println("Failed to add entry: status code:", resp.StatusCode)
