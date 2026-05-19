@@ -29,7 +29,7 @@ var addCmd = &cobra.Command{
 		if resp.StatusCode == http.StatusOK {
 			log.Println("Entry added successfully")
 		} else {
-			log.Println("Failed to add entry")
+			log.Println("Failed to add entry: status code:", resp.StatusCode)
 		}
 	},
 }
