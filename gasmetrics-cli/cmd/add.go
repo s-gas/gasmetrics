@@ -18,8 +18,7 @@ var addCmd = &cobra.Command{
 		if err != nil || value <= 0 {
 			log.Fatal("value must be a positive integer")
 		}
-		mapValue := map[string]int{"value": value}
-		body, err := json.Marshal(mapValue)
+		body, err := json.Marshal(Reading{Value: value})
 		if err != nil {
 			log.Fatal(err)
 		}

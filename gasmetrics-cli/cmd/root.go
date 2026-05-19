@@ -11,6 +11,9 @@ const (
 	contentType = "application/json"
 )
 
+type Reading struct {
+	Value int `json:"value"`
+}
 
 var rootCmd = &cobra.Command{
 	Use:   "gasmetrics-cli",
