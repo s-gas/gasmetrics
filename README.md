@@ -40,12 +40,6 @@ Run the containers:
 docker compose up
 ```
 
-## How to run the CLI
-
-```bash
-gasmetrics-cli <value>
-```
-
 ## Troubleshooting
 
 ### PostgreSQL password
@@ -58,11 +52,3 @@ To retrieve the token:
 1. Send `/mybots` to `@BotFather`
 2. Choose the bot from the list
 3. Go into `API Token`
-
-### CLI Path
-
-Make sure that `gasmetrics-cli` is in `PATH`. To add it:
-
-```bash
-sudo GOBIN=/usr/local/bin/ go install
-```
