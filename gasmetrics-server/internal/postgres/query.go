@@ -3,12 +3,14 @@ package postgres
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/jackc/pgx/v5"
 )
 
 type Reading struct {
 	Value int `json:"value"`
+	Date time.Time `json:"recorded_at"`
 }
 
 func GetLastEntry(ctx context.Context, conn *pgx.Conn) (int, error) {
@@ -26,7 +28,7 @@ func GetLastEntry(ctx context.Context, conn *pgx.Conn) (int, error) {
 
 func GetEntries(ctx context.Context, conn *pgx.Conn) ([]Reading, error) {
 	rows, err := conn.Query(ctx, `
-		SELECT value FROM gasmetrics ORDER BY recorded_at DESC
+		SELECT value, recorded_at FROM gasmetrics ORDER BY recorded_at DESC
 	`)
 	if err != nil {
 		return nil, fmt.Errorf("GetEntries: %w", err)
@@ -36,7 +38,7 @@ func GetEntries(ctx context.Context, conn *pgx.Conn) ([]Reading, error) {
 	var entries []Reading
 	for rows.Next() {
 		var r Reading
-		if err := rows.Scan(&r.Value); err != nil {
+		if err := rows.Scan(&r.Value, &r.Date); err != nil {
         return nil, fmt.Errorf("GetEntries scan: %w", err)
     }
 		entries = append(entries, r)

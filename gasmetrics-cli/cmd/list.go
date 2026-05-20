@@ -23,7 +23,7 @@ var listCmd = &cobra.Command{
 			log.Fatal(err)
 		}
 		for _, reading := range readings {
-			fmt.Println(reading.Value)
+			fmt.Printf("%v: %v\n", reading.Date, reading.Value) 
 		}
 	},
 }
