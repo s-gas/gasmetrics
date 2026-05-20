@@ -8,8 +8,8 @@ import (
 )
 
 
-func Get(ctx context.Context, conn *pgx.Conn) ([]postgres.Reading, error) {
-	if entries, err := postgres.GetEntries(ctx, conn); err != nil {
+func Get(ctx context.Context, conn *pgx.Conn, limit int) ([]postgres.Reading, error) {
+	if entries, err := postgres.GetEntries(ctx, conn, limit); err != nil {
 		return nil, err
 	} else {
 		return entries, nil

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"time"
-
+	"errors"
 	"github.com/jackc/pgx/v5"
 )
 
@@ -26,10 +26,12 @@ func GetLastEntry(ctx context.Context, conn *pgx.Conn) (int, error) {
 	return last, nil
 }
 
-func GetEntries(ctx context.Context, conn *pgx.Conn) ([]Reading, error) {
-	rows, err := conn.Query(ctx, `
-		SELECT value, recorded_at FROM gasmetrics ORDER BY recorded_at DESC
-	`)
+func GetEntries(ctx context.Context, conn *pgx.Conn, limit int) ([]Reading, error) {
+	if limit <= 0 {
+		return nil, errors.New("GetEntries: limit must be positive")
+	}
+	query := fmt.Sprintf("SELECT value, recorded_at FROM gasmetrics ORDER BY recorded_at DESC LIMIT %v", limit)
+	rows, err := conn.Query(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("GetEntries: %w", err)
 	}

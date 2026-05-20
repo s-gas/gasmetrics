@@ -4,6 +4,7 @@ import (
 	"os"
 	"log"
 	"fmt"
+	"strconv"
 	"context"
 	"net/http"
 	"encoding/json"
@@ -22,7 +23,16 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /readings", func(w http.ResponseWriter, r *http.Request) {
-		readings, err := handler.Get(ctx, conn)
+		limit := 10
+		if l := r.URL.Query().Get("limit"); l != "" {
+			var err error
+			limit, err = strconv.Atoi(l)
+			if err != nil {
+				http.Error(w, "invalid limit", http.StatusBadRequest)
+				return
+			}
+		}
+		readings, err := handler.Get(ctx, conn, limit)
 		if err != nil {
 			log.Println("error:", err.Error())
 			http.Error(w, err.Error(), http.StatusInternalServerError)
