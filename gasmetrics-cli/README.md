@@ -16,6 +16,13 @@ This command will install the binary in `~/go/bin`.
 ## How to run
 
 ### Add a reading
+
 ```bash
 gasmetrics-cli add <value>
+```
+
+### List readings
+
+```bash
+gasmetrics-cli list
 ```
