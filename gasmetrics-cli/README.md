@@ -24,5 +24,11 @@ gasmetrics-cli add <value>
 ### List readings
 
 ```bash
-gasmetrics-cli list
+gasmetrics-cli list [flags]
 ```
+
+#### Flags for listing
+
+| Flag      | Short | Default | Description                |
+|-----------|-------|---------|----------------------------|
+| `--limit` | `-l`  | `10`    | Number of readings to list |
