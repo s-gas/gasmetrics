@@ -7,8 +7,8 @@ import (
 )
 
 const (
-	url = "http://localhost:1024/readings"
-	// url = "http://hauslab/readings"
+	baseUrl = "http://localhost:1024/readings"
+	//baseUrl = "http://hauslab/readings"
 	contentType = "application/json"
 )
 
