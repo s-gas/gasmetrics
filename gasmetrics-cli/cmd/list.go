@@ -12,11 +12,8 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List readings",
 	Run: func(cmd *cobra.Command, args []string) {
-		limit, _ := cmd.Flags().GetInt("limit")
-		url := baseUrl
-		if (limit > 0) {
-			url = fmt.Sprintf("%s?limit=%d", baseUrl, limit)
-		}
+		limit, _ := cmd.Flags().GetUint("limit")
+		url := fmt.Sprintf("%s?limit=%d", baseUrl, limit)
 		resp, err := http.Get(url)
 		if err != nil {
 			log.Fatal(err)
@@ -34,7 +31,7 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-	var limit int
-	listCmd.Flags().IntVarP(&limit, "limit", "l", 10, "Number of readings to list")
+	var limit uint
+	listCmd.Flags().UintVarP(&limit, "limit", "l", 10, "Number of readings to list")
 	rootCmd.AddCommand(listCmd)
 }

@@ -22,7 +22,7 @@ var addCmd = &cobra.Command{
 		if err != nil {
 			log.Fatal(err)
 		}
-		resp, err := http.Post(url, contentType, bytes.NewReader(body))
+		resp, err := http.Post(baseUrl, contentType, bytes.NewReader(body))
 		if err != nil {
 			log.Fatal(err)
 		}
