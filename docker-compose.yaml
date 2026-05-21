@@ -12,8 +12,6 @@ services:
     restart: unless-stopped
     networks:
       - hauslab
-    ports:
-      - "1024:1024"
   gasmetrics-bot:
     image: sgasparini/gasmetrics-bot:latest
     container_name: gasmetrics-bot
