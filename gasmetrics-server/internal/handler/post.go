@@ -12,11 +12,11 @@ func Post(ctx context.Context, conn *pgx.Conn, reading postgres.Reading) error {
 	if err != nil {
 		return err
 	}
-	entry, err := validate(value, lastEntry)
+	err = validate(reading.Value, lastEntry)
 	if err != nil {
 		return err
 	}
-	err = postgres.AddEntry(ctx, conn, entry)
+	err = postgres.AddEntry(ctx, conn, reading)
 	if err != nil {
 		return err
 	}
