@@ -12,8 +12,9 @@ const (
 )
 
 type Reading struct {
-	Value int `json:"value"`
-	Date time.Time `json:"recorded_at"`
+	Id 		int 			`json:"id"`
+	Value int 			`json:"value"`
+	Date 	time.Time `json:"recorded_at"`
 }
 
 var rootCmd = &cobra.Command{

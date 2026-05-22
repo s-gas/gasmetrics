@@ -20,12 +20,13 @@ var listCmd = &cobra.Command{
 		}
 		defer resp.Body.Close()
 
+		fmt.Println("ID\tVALUE\tDATE")
 		var readings []Reading
 		if err := json.NewDecoder(resp.Body).Decode(&readings); err != nil {
 			log.Fatal(err)
 		}
 		for _, reading := range readings {
-			fmt.Printf("%v: %v m³\n", reading.Date.Format("2006-01-02"), reading.Value) 
+			fmt.Printf("%v\t%v\t%v m³\n", reading.Id, reading.Value, reading.Date.Format("2006-01-02")) 
 		}
 	},
 }

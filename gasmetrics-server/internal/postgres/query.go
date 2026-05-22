@@ -9,8 +9,9 @@ import (
 )
 
 type Reading struct {
-	Value int `json:"value"`
-	Date time.Time `json:"recorded_at"`
+	Id		int				`json:"id"`
+	Value int 			`json:"value"`
+	Date 	time.Time `json:"recorded_at"`
 }
 
 func GetPreviousEntry(ctx context.Context, conn *pgx.Conn, reading Reading) (int, error) {
@@ -45,7 +46,7 @@ func GetEntries(ctx context.Context, conn *pgx.Conn, limit int) ([]Reading, erro
 	if limit <= 0 {
 		return nil, errors.New("GetEntries: limit must be positive")
 	}
-	query := fmt.Sprintf("SELECT value, recorded_at FROM gasmetrics ORDER BY recorded_at DESC LIMIT %v", limit)
+	query := fmt.Sprintf("SELECT * FROM gasmetrics ORDER BY recorded_at DESC LIMIT %v", limit)
 	rows, err := conn.Query(ctx, query)
 	if err != nil {
 		return nil, fmt.Errorf("GetEntries: %w", err)
@@ -55,7 +56,7 @@ func GetEntries(ctx context.Context, conn *pgx.Conn, limit int) ([]Reading, erro
 	var entries []Reading
 	for rows.Next() {
 		var r Reading
-		if err := rows.Scan(&r.Value, &r.Date); err != nil {
+		if err := rows.Scan(&r.Id, &r.Value, &r.Date); err != nil {
         return nil, fmt.Errorf("GetEntries scan: %w", err)
     }
 		entries = append(entries, r)

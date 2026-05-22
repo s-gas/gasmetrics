@@ -8,8 +8,8 @@ import (
 )
 
 type Reading struct {
-	Value int `json:"value"`
-	Date time.Time `json:"recorded_at"`
+	Value int 			`json:"value"`
+	Date 	time.Time `json:"recorded_at"`
 }
 
 func Parse(msg string) (Reading, error) {
