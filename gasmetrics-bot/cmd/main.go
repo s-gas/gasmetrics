@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
+	"encoding/json"
+	"bytes"
 	"net/http"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-bot/internal/telegram"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-bot/internal/reading"
 )
 
 func main() {
@@ -21,9 +23,17 @@ func main() {
 	updates := telegram.GetUpdates(bot)
 
 	for update := range updates {
-		value := update.Message.Text
-		body := strings.NewReader(fmt.Sprintf(`{"value": %s}`, value))
-		resp, err := http.Post(url, contentType, body)
+		r, err := reading.Parse(update.Message.Text)
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		body, err := json.Marshal(r) 
+		if err != nil {
+			log.Println(err)
+			continue
+		}
+		resp, err := http.Post(url, contentType, bytes.NewReader(body))
 		if err != nil {
 			log.Println(err)
 			continue
@@ -31,10 +41,10 @@ func main() {
 		defer resp.Body.Close()
 	
 		var msg string
-		if resp.StatusCode == http.StatusOK {
+		if resp.StatusCode == http.StatusCreated {
 			msg = "Entry added successfully"
 		} else {
-			msg = "Failed to add entry"
+			msg = fmt.Sprintf("Failed to add entry: status code: %v", resp.StatusCode)
 		}
 		log.Println(msg)
 		telegram.Reply(msg, bot, update)
