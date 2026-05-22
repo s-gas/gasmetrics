@@ -31,7 +31,6 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-	var limit uint
-	listCmd.Flags().UintVarP(&limit, "limit", "l", 10, "Number of readings to list")
+	listCmd.Flags().UintP("limit", "l", 10, "Number of readings to list")
 	rootCmd.AddCommand(listCmd)
 }

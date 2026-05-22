@@ -1,6 +1,7 @@
 package cmd
 
 import (
+		"time"
     "log"
 		"bytes"
 		"encoding/json"
@@ -14,11 +15,8 @@ var addCmd = &cobra.Command{
 	Short: 	"Add a gas reading (int)",
 	Args:		cobra.ExactArgs(1),
 	Run:		func(cmd *cobra.Command, args []string) {
-		value, err := strconv.Atoi(args[0])
-		if err != nil || value <= 0 {
-			log.Fatal("value must be a positive integer")
-		}
-		body, err := json.Marshal(Reading{Value: value})
+		reading := parseReading(cmd, args)
+		body, err := json.Marshal(reading)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -36,6 +34,27 @@ var addCmd = &cobra.Command{
 	},
 }
 
+func parseReading(cmd *cobra.Command, args []string) Reading {
+		var reading Reading
+		var err error
+		dateStr, _ := cmd.Flags().GetString("date")
+		if !cmd.Flags().Changed("date") {
+			reading.Date = time.Now()	
+		} else {
+			reading.Date, err = time.Parse("2006-01-02", dateStr)
+			if err != nil {
+				log.Fatal("invalid date format")
+			}
+		}
+		reading.Value, err = strconv.Atoi(args[0])
+		if err != nil || reading.Value <= 0 {
+			log.Fatal("value must be a positive integer")
+		}
+		return reading
+
+}
+
 func init() {
+	addCmd.Flags().StringP("date", "d", "", "Specific date in format YYYY-MM-DD")
 	rootCmd.AddCommand(addCmd)
 }
