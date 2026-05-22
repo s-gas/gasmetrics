@@ -32,3 +32,9 @@ gasmetrics-cli list [flags]
 | Flag      | Short | Default | Description                |
 |-----------|-------|---------|----------------------------|
 | `--limit` | `-l`  | `10`    | Number of readings to list |
+
+### Delete a reading
+
+```bash
+gasmetrics-cli delete <id>
+```

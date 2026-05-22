@@ -7,7 +7,7 @@ Home gas consuption tracker. Built as three independent services.
 
 ## Services
 - ### [gasmetrics-server](./gasmetrics-server)
-  HTTP server that stores the readings in a PostgreSQL database.
+  HTTP server that manages the readings by interacting with a PostgreSQL database.
 
 - ### [gasmetrics-bot](./gasmetrics-bot)
   Telegram bot that polls for messages and sends the readings to the server via HTTP.
