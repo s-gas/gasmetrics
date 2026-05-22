@@ -20,9 +20,5 @@ func Post(ctx context.Context, conn *pgx.Conn, reading postgres.Reading) error {
 	if err != nil {
 		return err
 	}
-	err = postgres.AddEntry(ctx, conn, reading)
-	if err != nil {
-		return err
-	}
-	return nil
+	return postgres.AddEntry(ctx, conn, reading)
 }

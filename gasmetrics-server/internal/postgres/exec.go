@@ -16,3 +16,13 @@ func AddEntry(ctx context.Context, conn *pgx.Conn, reading Reading) error {
 	}
 	return nil
 }
+
+func DeleteEntry(ctx context.Context, conn *pgx.Conn, reading Reading) error {
+	_, err :=conn.Exec(ctx, `
+		DELETE FROM gasmetrics WHERE id = $1
+	`, reading.Id)
+	if err != nil {
+		return fmt.Errorf("deleteEntry: %w", err)
+	}
+	return nil
+}
