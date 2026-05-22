@@ -54,7 +54,6 @@ func parseReading(cmd *cobra.Command, args []string) Reading {
 			log.Fatal("value must be a positive integer")
 		}
 		return reading
-
 }
 
 func init() {
