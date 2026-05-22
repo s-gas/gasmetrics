@@ -13,17 +13,32 @@ type Reading struct {
 	Date time.Time `json:"recorded_at"`
 }
 
-func GetLastEntry(ctx context.Context, conn *pgx.Conn) (int, error) {
+func GetPreviousEntry(ctx context.Context, conn *pgx.Conn, reading Reading) (int, error) {
 	var last int
 	err := conn.QueryRow(ctx, `
-		SELECT value FROM gasmetrics ORDER BY recorded_at DESC LIMIT 1
-	`).Scan(&last)
+		SELECT value FROM gasmetrics 
+		WHERE recorded_at < $1 ORDER BY recorded_at DESC LIMIT 1
+	`, reading.Date).Scan(&last)
 	if err == pgx.ErrNoRows {
 		last = 0
 	} else if err != nil {
 		return 0, fmt.Errorf("GetLastQuery: %w", err)
 	}
 	return last, nil
+}
+
+func GetNextEntry(ctx context.Context, conn *pgx.Conn, reading Reading) (int, error) {
+	var next int
+	err := conn.QueryRow(ctx, `
+		SELECT value FROM gasmetrics
+		WHERE recorded_at > $1 ORDER BY recorded_at ASC LIMIT 1
+	`, reading.Date).Scan(&next)
+	if err == pgx.ErrNoRows {
+		next = 0
+	} else if err != nil {
+		return 0, fmt.Errorf("GetLastQuery: %w", err)
+	}
+	return next, nil
 }
 
 func GetEntries(ctx context.Context, conn *pgx.Conn, limit int) ([]Reading, error) {

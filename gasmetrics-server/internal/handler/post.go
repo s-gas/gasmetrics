@@ -8,11 +8,15 @@ import (
 )
 
 func Post(ctx context.Context, conn *pgx.Conn, reading postgres.Reading) error {
-	lastEntry, err := postgres.GetLastEntry(ctx, conn)
+	lastEntry, err := postgres.GetPreviousEntry(ctx, conn, reading)
 	if err != nil {
 		return err
 	}
-	err = validate(reading.Value, lastEntry)
+	nextEntry, err := postgres.GetNextEntry(ctx, conn, reading)
+	if err != nil {
+		return err
+	}
+	err = validate(reading.Value, lastEntry, nextEntry)
 	if err != nil {
 		return err
 	}
