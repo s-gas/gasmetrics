@@ -4,9 +4,9 @@ import (
 	"fmt"
 )
 
-func validate(value int, lastEntry int) (int, error) {
+func validate(value int, lastEntry int) error {
 	if value <= lastEntry {
-		return 0, fmt.Errorf("validate: value must be greater than last entry (%v)", lastEntry)
+		return fmt.Errorf("validate: value must be greater than last entry (%v)", lastEntry)
 	}
-	return value, nil
+	return nil
 }

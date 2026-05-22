@@ -48,7 +48,7 @@ func main() {
 			http.Error(w, "invalid body", http.StatusBadRequest)
 			return
 		}
-		if err := handler.Post(ctx, conn, reading.Value); err != nil {
+		if err := handler.Post(ctx, conn, reading); err != nil {
 			log.Println("error:", err.Error())
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return

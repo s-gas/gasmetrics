@@ -7,7 +7,7 @@ import (
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
 )
 
-func Post(ctx context.Context, conn *pgx.Conn, value int) error {
+func Post(ctx context.Context, conn *pgx.Conn, reading postgres.Reading) error {
 	lastEntry, err := postgres.GetLastEntry(ctx, conn)
 	if err != nil {
 		return err

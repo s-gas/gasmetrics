@@ -45,6 +45,9 @@ func parseReading(cmd *cobra.Command, args []string) Reading {
 			if err != nil {
 				log.Fatal("invalid date format")
 			}
+			if reading.Date.After(time.Now()) {
+				log.Fatal("invalid date")
+			}
 		}
 		reading.Value, err = strconv.Atoi(args[0])
 		if err != nil || reading.Value <= 0 {
