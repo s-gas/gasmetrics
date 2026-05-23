@@ -23,7 +23,7 @@ func GetPreviousEntry(ctx context.Context, conn *pgx.Conn, reading Reading) (int
 	if err == pgx.ErrNoRows {
 		last = 0
 	} else if err != nil {
-		return 0, fmt.Errorf("GetLastQuery: %w", err)
+		return 0, fmt.Errorf("GetPreviousQuery: %w", err)
 	}
 	return last, nil
 }
