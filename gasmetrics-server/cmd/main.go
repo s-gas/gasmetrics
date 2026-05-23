@@ -29,7 +29,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%v", port)
-	fmt.Printf("gasmetrics-server listening at %s%s\n", addr, "/readings")
+	log.Printf("gasmetrics-server listening at %s%s\n", addr, "/readings")
 	if err = http.ListenAndServe(addr, mux); err != nil {
 		log.Fatal(err)
 	}
