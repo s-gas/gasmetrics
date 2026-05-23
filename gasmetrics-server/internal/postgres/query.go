@@ -3,16 +3,9 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"time"
 	"errors"
 	"github.com/jackc/pgx/v5"
 )
-
-type Reading struct {
-	Id		int				`json:"id"`
-	Value int 			`json:"value"`
-	Date 	time.Time `json:"recorded_at"`
-}
 
 func GetPreviousEntry(ctx context.Context, conn *pgx.Conn, reading Reading) (int, error) {
 	var last int
