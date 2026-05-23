@@ -4,10 +4,8 @@ import (
 	"os"
 	"log"
 	"fmt"
-	"strconv"
 	"context"
 	"net/http"
-	"encoding/json"
 
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/handler"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
@@ -21,56 +19,13 @@ func main() {
 	}
 	defer conn.Close(context.Background())
 
+	server := &handler.Server{Ctx: ctx, Conn: conn}
+
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /readings", func(w http.ResponseWriter, r *http.Request) {
-		limit := 10
-		if l := r.URL.Query().Get("limit"); l != "" {
-			var err error
-			limit, err = strconv.Atoi(l)
-			if err != nil {
-				http.Error(w, "invalid limit", http.StatusBadRequest)
-				return
-			}
-		}
-		readings, err := handler.Get(ctx, conn, limit)
-		if err != nil {
-			log.Println("error:", err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(readings)
-	})
-
-	mux.HandleFunc("POST /readings", func(w http.ResponseWriter, r *http.Request) {
-		var reading postgres.Reading
-		if err := json.NewDecoder(r.Body).Decode(&reading); err != nil {
-			http.Error(w, "invalid body", http.StatusBadRequest)
-			return
-		}
-		if err := handler.Post(ctx, conn, reading); err != nil {
-			log.Println("error:", err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.WriteHeader(http.StatusCreated)
-	})
-
-	mux.HandleFunc("DELETE /readings/{id}", func(w http.ResponseWriter, r *http.Request) {
-		var reading postgres.Reading
-		reading.Id, err = strconv.Atoi(r.PathValue("id"))
-		if err != nil {
-			http.Error(w, "invalid id", http.StatusBadRequest)
-			return
-		}
-		if err := handler.Delete(ctx, conn, reading); err != nil {
-			log.Println("error:", err.Error())
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		w.WriteHeader(http.StatusNoContent)
-	})
+	mux.HandleFunc("GET /readings", server.GetReadings)
+	mux.HandleFunc("POST /readings", server.PostReading)
+	mux.HandleFunc("DELETE /readings/{id}", server.DeleteReading)
 
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%v", port)
