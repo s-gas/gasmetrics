@@ -13,7 +13,7 @@ import (
 
 var addCmd = &cobra.Command{
 	Use:		"add <value>",
-	Short: 	"Add a gas reading (int)",
+	Short: 	"Add a gas reading in m³ (int)",
 	Args:		cobra.ExactArgs(1),
 	Run:		func(cmd *cobra.Command, args []string) {
 		reading, err := parseReading(cmd, args)
