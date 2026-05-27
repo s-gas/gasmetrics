@@ -30,3 +30,7 @@ func (server *Server) GetReadings(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(entries)
 }
 
+func (server *Server) GetStats(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Write([]byte(`{"avg": 0.0}`))
+}

@@ -24,6 +24,7 @@ func main() {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("GET /readings", server.GetReadings)
+	mux.HandleFunc("GET /readings/stats", server.GetStats)
 	mux.HandleFunc("POST /readings", server.PostReading)
 	mux.HandleFunc("DELETE /readings/{id}", server.DeleteReading)
 
