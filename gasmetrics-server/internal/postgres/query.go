@@ -56,3 +56,16 @@ func GetEntries(ctx context.Context, conn *pgx.Conn, limit int) ([]Reading, erro
 	}
 	return entries, nil
 }
+
+func GetAverage(ctx context.Context, conn *pgx.Conn) (float64, error) {
+	var avg float64
+	err := conn.QueryRow(ctx, `
+		SELECT (MAX(value) - MIN(value)) /
+		NULLIF(EXTRACT(days FROM MAX(recorded_at) - MIN(recorded_at)), 0)
+		FROM gasmetrics
+	`).Scan(&avg)
+	if err != nil {
+		return 0.0, fmt.Errorf("GetAverage: %w", err)
+	}
+	return avg, nil
+}
