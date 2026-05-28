@@ -1,25 +1,25 @@
 package cmd
 
 import (
+	"github.com/spf13/cobra"
 	"log"
 	"time"
-	"github.com/spf13/cobra"
 )
 
 const (
-	baseUrl = "http://hauslab/readings"
+	baseUrl       = "http://hauslab/readings"
 	statsEndpoint = "/stats"
-	contentType = "application/json"
+	contentType   = "application/json"
 )
 
 type Reading struct {
-	Id 		int 			`json:"id"`
-	Value int 			`json:"value"`
-	Date 	time.Time `json:"recorded_at"`
+	Id    int       `json:"id"`
+	Value int       `json:"value"`
+	Date  time.Time `json:"recorded_at"`
 }
 
 type Stats struct {
-	Avg		float64		`json:"avg"`
+	Avg float64 `json:"avg"`
 }
 
 var rootCmd = &cobra.Command{
@@ -37,5 +37,3 @@ func Execute() {
 func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-
-

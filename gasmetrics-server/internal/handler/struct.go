@@ -7,6 +7,6 @@ import (
 )
 
 type Server struct {
-	Ctx context.Context
+	Ctx  context.Context
 	Conn *pgx.Conn
 }

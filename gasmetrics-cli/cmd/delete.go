@@ -2,16 +2,16 @@ package cmd
 
 import (
 	"fmt"
-	"log"
-	"strconv"
-	"net/http"
 	"github.com/spf13/cobra"
+	"log"
+	"net/http"
+	"strconv"
 )
 
 var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Delete reading by ID",
-	Args:		cobra.ExactArgs(1),
+	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		var reading Reading
 		var err error
@@ -23,7 +23,7 @@ var deleteCmd = &cobra.Command{
 			log.Fatal("ID must be greater than 0")
 		}
 		url := fmt.Sprintf("%s/%d", baseUrl, reading.Id)
-		req, err := http.NewRequest(http.MethodDelete, url, nil) 
+		req, err := http.NewRequest(http.MethodDelete, url, nil)
 		if err != nil {
 			log.Fatal(err)
 		}

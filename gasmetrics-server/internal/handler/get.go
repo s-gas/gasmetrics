@@ -1,11 +1,11 @@
 package handler
 
 import (
-	"log"
 	"encoding/json"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
+	"log"
 	"net/http"
 	"strconv"
-	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
 )
 
 func (server *Server) GetReadings(w http.ResponseWriter, r *http.Request) {

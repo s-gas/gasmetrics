@@ -18,7 +18,7 @@ func AddEntry(ctx context.Context, conn *pgx.Conn, reading Reading) error {
 }
 
 func DeleteEntry(ctx context.Context, conn *pgx.Conn, reading Reading) error {
-	tag, err :=conn.Exec(ctx, `
+	tag, err := conn.Exec(ctx, `
 		DELETE FROM gasmetrics WHERE id = $1
 	`, reading.Id)
 	if err != nil {

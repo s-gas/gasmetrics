@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"os"
-	"fmt"
 	"encoding/json"
-	"net/http"
+	"fmt"
 	"github.com/spf13/cobra"
+	"net/http"
+	"os"
 )
 
 var listCmd = &cobra.Command{
@@ -18,7 +18,7 @@ var listCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		if limit == 0 {
-			return;
+			return
 		}
 		url := fmt.Sprintf("%s?limit=%d", baseUrl, limit)
 		resp, err := http.Get(url)
@@ -35,7 +35,7 @@ var listCmd = &cobra.Command{
 			os.Exit(1)
 		}
 		for _, reading := range readings {
-			fmt.Printf("%v\t%vm³\t%v\n", reading.Id, reading.Value, reading.Date.Format("2006-01-02")) 
+			fmt.Printf("%v\t%vm³\t%v\n", reading.Id, reading.Value, reading.Date.Format("2006-01-02"))
 		}
 	},
 }

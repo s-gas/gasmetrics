@@ -1,11 +1,11 @@
 package cmd
 
 import (
-	"os"
-	"fmt"
-	"net/http"
 	"encoding/json"
+	"fmt"
 	"github.com/spf13/cobra"
+	"net/http"
+	"os"
 )
 
 var averageCmd = &cobra.Command{

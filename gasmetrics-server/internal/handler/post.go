@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"log"
-	"net/http"
 	"encoding/json"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
+	"log"
+	"net/http"
 )
 
 func (server *Server) PostReading(w http.ResponseWriter, r *http.Request) {

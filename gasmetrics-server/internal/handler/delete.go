@@ -1,11 +1,11 @@
 package handler
 
 import (
+	"errors"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
 	"log"
 	"net/http"
-	"errors"
 	"strconv"
-	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"
 )
 
 func (server *Server) DeleteReading(w http.ResponseWriter, r *http.Request) {

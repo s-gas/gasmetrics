@@ -1,11 +1,11 @@
 package main
 
 import (
-	"os"
-	"log"
-	"fmt"
 	"context"
+	"fmt"
+	"log"
 	"net/http"
+	"os"
 
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/handler"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-server/internal/postgres"

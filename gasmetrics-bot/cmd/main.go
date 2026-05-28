@@ -1,14 +1,14 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"os"
-	"encoding/json"
 	"bytes"
-	"net/http"
-	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-bot/internal/telegram"
+	"encoding/json"
+	"fmt"
 	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-bot/internal/reading"
+	"github.com/s-gas/hauslab/services/gasmetrics/gasmetrics-bot/internal/telegram"
+	"log"
+	"net/http"
+	"os"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 			log.Println(err)
 			continue
 		}
-		body, err := json.Marshal(r) 
+		body, err := json.Marshal(r)
 		if err != nil {
 			log.Println(err)
 			continue
@@ -39,7 +39,7 @@ func main() {
 			continue
 		}
 		defer resp.Body.Close()
-	
+
 		var msg string
 		if resp.StatusCode == http.StatusCreated {
 			msg = "Entry added successfully"

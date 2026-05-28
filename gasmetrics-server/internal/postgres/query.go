@@ -2,8 +2,8 @@ package postgres
 
 import (
 	"context"
-	"fmt"
 	"errors"
+	"fmt"
 	"github.com/jackc/pgx/v5"
 )
 
@@ -50,8 +50,8 @@ func GetEntries(ctx context.Context, conn *pgx.Conn, limit int) ([]Reading, erro
 	for rows.Next() {
 		var r Reading
 		if err := rows.Scan(&r.Id, &r.Value, &r.Date); err != nil {
-        return nil, fmt.Errorf("GetEntries scan: %w", err)
-    }
+			return nil, fmt.Errorf("GetEntries scan: %w", err)
+		}
 		entries = append(entries, r)
 	}
 	return entries, nil
