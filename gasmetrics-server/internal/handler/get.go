@@ -31,6 +31,14 @@ func (server *Server) GetReadings(w http.ResponseWriter, r *http.Request) {
 }
 
 func (server *Server) GetStats(w http.ResponseWriter, r *http.Request) {
+	ctx := server.Ctx
+	conn := server.Conn
+	avg, err := postgres.GetAverage(ctx, conn)
+	if err != nil {
+		log.Println("error:", err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 	w.Header().Set("Content-Type", "application/json")
-	w.Write([]byte(`{"avg": 0.0}`))
+	json.NewEncoder(w).Encode(avg)
 }

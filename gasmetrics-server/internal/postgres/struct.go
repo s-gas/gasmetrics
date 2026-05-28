@@ -7,3 +7,7 @@ type Reading struct {
 	Value int 			`json:"value"`
 	Date 	time.Time `json:"recorded_at"`
 }
+
+type Stats struct {
+	Avg		float64		`json:"avg"`
+}
