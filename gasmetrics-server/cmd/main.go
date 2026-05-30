@@ -23,14 +23,14 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("GET /readings", server.GetReadings)
-	mux.HandleFunc("GET /readings/stats", server.GetStats)
-	mux.HandleFunc("POST /readings", server.PostReading)
-	mux.HandleFunc("DELETE /readings/{id}", server.DeleteReading)
+	mux.HandleFunc("GET /", server.GetReadings)
+	mux.HandleFunc("GET /stats", server.GetStats)
+	mux.HandleFunc("POST /", server.PostReading)
+	mux.HandleFunc("DELETE /{id}", server.DeleteReading)
 
 	port := os.Getenv("PORT")
 	addr := fmt.Sprintf(":%v", port)
-	log.Printf("gasmetrics-server listening at %s%s\n", addr, "/readings")
+	log.Printf("gasmetrics-server listening at port %s\n", addr)
 	if err = http.ListenAndServe(addr, mux); err != nil {
 		log.Fatal(err)
 	}

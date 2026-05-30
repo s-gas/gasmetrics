@@ -11,13 +11,15 @@ import (
 	"os"
 )
 
+const url = "http://gasmetrics-server" // Docker domain name
+
 func main() {
 	bot, err := telegram.CreateBot()
 	if err != nil {
 		log.Fatal(err)
 	}
 	port := os.Getenv("PORT")
-	url := fmt.Sprintf("http://gasmetrics-server:%s/readings", port)
+	url := fmt.Sprintf("%s:%s", url, port)
 	contentType := "application/json"
 
 	updates := telegram.GetUpdates(bot)
