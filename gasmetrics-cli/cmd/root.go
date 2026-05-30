@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	baseUrl 	    = "http://gasmetrics.hauslab" // virtual host specified in nginx.conf
+	baseUrl       = "http://gasmetrics.hauslab" // virtual host specified in nginx.conf
 	statsEndpoint = "/stats"
 	contentType   = "application/json"
 )

@@ -3,8 +3,8 @@ package cmd
 import (
 	"fmt"
 	"github.com/spf13/cobra"
-	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -17,26 +17,30 @@ var deleteCmd = &cobra.Command{
 		var err error
 		reading.Id, err = strconv.Atoi(args[0])
 		if err != nil {
-			log.Fatal(err)
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
 		}
 		if reading.Id < 1 {
-			log.Fatal("ID must be greater than 0")
+			fmt.Fprintln(os.Stderr, "ID must be greater than 0")
+			os.Exit(1)
 		}
 		url := fmt.Sprintf("%s/%d", baseUrl, reading.Id)
 		req, err := http.NewRequest(http.MethodDelete, url, nil)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
 		}
 		resp, err := http.DefaultClient.Do(req)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
 		}
 		defer resp.Body.Close()
 
 		if resp.StatusCode == http.StatusNoContent {
-			log.Println("Entry deleted successfully")
+			fmt.Println("Entry deleted successfully")
 		} else {
-			log.Println("Failed to delete entry: status code:", resp.StatusCode)
+			fmt.Fprintln(os.Stderr, "Failed to delete entry: status code:", resp.StatusCode)
 		}
 	},
 }
