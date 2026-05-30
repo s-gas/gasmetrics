@@ -10,6 +10,12 @@ HTTP server that manages home gas readings.
 GET /
 ```
 
+This endpoint accepts a `limit` query parameter for specifying how many entries to return:
+
+```
+GET /?limit={n}
+```
+
 ### Get the average consumption per day
 
 ```
