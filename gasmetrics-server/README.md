@@ -1,8 +1,10 @@
 # gasmetrics-server
 
-HTTP server that manages home gas readings.
+Containerized HTTP server that manages home gas readings.
 
 ## API Endpoints
+
+The server listens on port `1024` in the container and does **not** expose any port on the host machine.
 
 ### Get a list of readings
 
