@@ -33,6 +33,12 @@ gasmetrics-cli list [flags]
 |-----------|-------|---------|----------------------------|
 | `--limit` | `-l`  | `10`    | Number of readings to list |
 
+### Get average consumption per day
+
+```bash
+gasmetrics-cli average
+```
+
 ### Delete a reading
 
 ```bash
