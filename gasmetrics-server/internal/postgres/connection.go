@@ -17,7 +17,7 @@ func Connect(ctx context.Context) (*pgx.Conn, error) {
 	if err != nil {
 		return nil, fmt.Errorf("Connect: Connect: %w", err)
 	}
-	err = createTable(ctx, conn)
+	err = createTables(ctx, conn)
 	if err != nil {
 		return nil, fmt.Errorf("Connect: createTable: %w", err)
 	}

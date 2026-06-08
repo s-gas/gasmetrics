@@ -7,12 +7,22 @@ import (
 	"github.com/jackc/pgx/v5"
 )
 
-func createTable(ctx context.Context, conn *pgx.Conn) error {
+func createTables(ctx context.Context, conn *pgx.Conn) error {
 	_, err := conn.Exec(ctx, `
 		CREATE TABLE IF NOT EXISTS gasmetrics (
 			id 				SERIAL PRIMARY KEY,
 			value			NUMERIC		NOT NULL,
 			recorded_at		TIMESTAMPTZ	NOT NULL	DEFAULT NOW()
+		)
+	`)
+	if err != nil {
+		return fmt.Errorf("createTable: %w", err)
+	}
+	_, err = conn.Exec(ctx, `
+		CREATE TABLE IF NOT EXISTS gasmetrics_avg_day (
+			id			SERIAL PRIMARY KEY,
+			avg			NUMERIC		NOT NULL,
+			recorded_at		TIMESTAMPTZ NOT NULL	DEFAULT NOW()
 		)
 	`)
 	if err != nil {
