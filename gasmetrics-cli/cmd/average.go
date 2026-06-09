@@ -25,7 +25,7 @@ var averageCmd = &cobra.Command{
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-		fmt.Printf("Daily average consumption: %.2f m³\n", stats.Avg)
+		fmt.Printf("Daily average consumption: %f m³\n", stats.Avg)
 	},
 }
 
