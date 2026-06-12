@@ -19,7 +19,7 @@ Gas readings can be submitted via Telegram or via CLI and are stored in a Postgr
 
 ## Infrastructure
 
-The project is built as three independent containerized services, which communicate via HTTP.
+The project is built as three independent services, which communicate via HTTP.
 
 Each service has a single responsibility:
 - gasmetrics-server: business logic and database access
